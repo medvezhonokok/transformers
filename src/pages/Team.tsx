@@ -1,95 +1,95 @@
-import { useEffect, useState } from 'react';
-import { supabase, Player } from '../lib/supabase';
+import {useEffect, useState} from 'react';
+import {supabase, Player} from '../lib/supabase';
 
 export default function Team() {
-  const [players, setPlayers] = useState<Player[]>([]);
-  const [loading, setLoading] = useState(true);
+    const [players, setPlayers] = useState<Player[]>([]);
+    const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    loadPlayers();
-  }, []);
+    useEffect(() => {
+        loadPlayers();
+    }, []);
 
-  async function loadPlayers() {
-    try {
-      const { data, error } = await supabase
-        .from('players')
-        .select('*')
-        .order('name');
+    async function loadPlayers() {
+        try {
+            const {data, error} = await supabase
+                .from('players')
+                .select('*')
+                .order('name');
 
-      if (error) throw error;
-      setPlayers(data || []);
-    } catch (error) {
-      console.error('Error loading players:', error);
-    } finally {
-      setLoading(false);
+            if (error) throw error;
+            setPlayers(data || []);
+        } catch (error) {
+            console.error('Error loading players:', error);
+        } finally {
+            setLoading(false);
+        }
     }
-  }
 
-  if (loading) {
+    if (loading) {
+        return (
+            <div className="page-container">
+                <div className="loading">Загрузка...</div>
+            </div>
+        );
+    }
+
     return (
-      <div className="page-container">
-        <div className="loading">Загрузка...</div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="page-container">
-      <div className="team-hero">
-        <h1 className="page-title">Наша команда</h1>
-        <p className="page-subtitle">
-          Легенды, которые трансформируют игру
-        </p>
-      </div>
-
-      <div className="players-grid">
-        {players.map((player) => (
-          <div
-            key={player.id}
-            className="player-card"
-            style={{ '--player-color': player.color } as React.CSSProperties}
-          >
-            <div className="player-header">
-              <div
-                className="player-avatar"
-                style={{ backgroundColor: player.color }}
-              >
-                {player.name.split(' ').map(n => n[0]).join('')}
-              </div>
+        <div className="page-container">
+            <div className="team-hero">
+                <h1 className="page-title">Наша команда</h1>
+                <p className="page-subtitle">
+                    Легенды, которые трансформируют игру
+                </p>
             </div>
 
-            <div className="player-info">
-              <h3 className="player-name">{player.name}</h3>
-              <p className="player-position">{player.position}</p>
+            <div className="players-grid">
+                {players.map((player) => (
+                    <div
+                        key={player.id}
+                        className="player-card"
+                        style={{'--player-color': player.color} as React.CSSProperties}
+                    >
+                        <div className="player-header">
+                            <div
+                                className="player-avatar"
+                                style={{backgroundColor: player.color}}
+                            >
+                                {player.name.split(' ').map(n => n[0]).join('')}
+                            </div>
+                        </div>
 
-              <div className="player-stats">
-                <div className="stat">
-                  <span className="stat-label">Год</span>
-                  <span className="stat-value">{player.birth_year}</span>
-                </div>
-                <div className="stat">
-                  <span className="stat-label">Рост</span>
-                  <span className="stat-value">{player.height} см</span>
-                </div>
-                <div className="stat">
-                  <span className="stat-label">Уровень</span>
-                  <span className="stat-value">{player.skill_level}</span>
-                </div>
-              </div>
+                        <div className="player-info">
+                            <h3 className="player-name">{player.name}</h3>
+                            <p className="player-position">{player.position}</p>
 
-              <p className="player-story">{player.story}</p>
+                            <div className="player-stats">
+                                <div className="stat">
+                                    <span className="stat-label">Год</span>
+                                    <span className="stat-value">{player.birth_year}</span>
+                                </div>
+                                <div className="stat">
+                                    <span className="stat-label">Рост</span>
+                                    <span className="stat-value">{player.height} см</span>
+                                </div>
+                                <div className="stat">
+                                    <span className="stat-label">Уровень</span>
+                                    <span className="stat-value">{player.skill_level}</span>
+                                </div>
+                            </div>
+
+                            <p className="player-story">{player.story}</p>
+                        </div>
+                    </div>
+                ))}
             </div>
-          </div>
-        ))}
-      </div>
 
-      <footer className="footer">
-        <div className="footer-content">
-          <div className="footer-copyright">
-            © {new Date().getFullYear()} Трансформеры. Все права защищены.
-          </div>
+            <footer className="footer">
+                <div className="footer-content">
+                    <div className="footer-copyright">
+                        © {new Date().getFullYear()} Трансформеры. Все права защищены.
+                    </div>
+                </div>
+            </footer>
         </div>
-      </footer>
-    </div>
-  );
+    );
 }

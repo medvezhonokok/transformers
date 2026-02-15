@@ -7,33 +7,33 @@ import { ThemeProvider } from './context/ThemeContext';
 import Contacts from "./pages/Contacts";
 
 function App() {
-  const [currentPage, setCurrentPage] = useState<'history' | 'team' | 'schedule' | 'contacts'>('history');
-
-  const renderPage = () => {
-    switch (currentPage) {
-      case 'history':
-        return <History />;
-      case 'team':
-        return <Team />;
-      case 'schedule':
-        return <Schedule />;
-      case 'contacts':
-        return <Contacts />;
-      default:
-        return <History />;
-    }
-  };
+  const [currentPage, setCurrentPage] = useState<'history' | 'team' | 'schedule' | 'contacts'>('history')
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
-    <ThemeProvider>
-      <div className="app">
-        <Navigation currentPage={currentPage} onPageChange={setCurrentPage} />
-        <main className="main-content">
-          {renderPage()}
-        </main>
-      </div>
-    </ThemeProvider>
-  );
+      <ThemeProvider>
+        <div className="app">
+          <Navigation
+              currentPage={currentPage}
+              onPageChange={setCurrentPage}
+              isMenuOpen={isMenuOpen}
+              setIsMenuOpen={setIsMenuOpen}
+          />
+
+          <div
+              className={`menu-overlay ${isMenuOpen ? 'active' : ''}`}
+              onClick={() => setIsMenuOpen(false)}
+          />
+
+          <main className="main-content">
+            {currentPage === 'history' && <History />}
+            {currentPage === 'team' && <Team />}
+            {currentPage === 'schedule' && <Schedule />}
+            {currentPage === 'contacts' && <Contacts />}
+          </main>
+        </div>
+      </ThemeProvider>
+  )
 }
 
-export default App;
+export default App
