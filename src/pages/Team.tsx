@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { supabase, Player } from '../lib/supabase';
-import { Users } from 'lucide-react';
 
 export default function Team() {
   const [players, setPlayers] = useState<Player[]>([]);
@@ -37,10 +36,9 @@ export default function Team() {
   return (
     <div className="page-container">
       <div className="team-hero">
-        <Users size={48} className="team-icon" />
         <h1 className="page-title">Наша команда</h1>
         <p className="page-subtitle">
-          Семь легенд, которые трансформируют игру
+          Легенды, которые трансформируют игру
         </p>
       </div>
 
@@ -84,6 +82,14 @@ export default function Team() {
           </div>
         ))}
       </div>
+
+      <footer className="footer">
+        <div className="footer-content">
+          <div className="footer-copyright">
+            © {new Date().getFullYear()} Трансформеры. Все права защищены.
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

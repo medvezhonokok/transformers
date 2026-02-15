@@ -1,11 +1,11 @@
-import { Trophy, Medal, Target } from 'lucide-react';
+import {Trophy, Medal, Target, } from 'lucide-react';
 
 export default function History() {
   const achievements = [
     {
       icon: Trophy,
       title: '15x Олимпийские игры',
-      description: 'Золотые медали на всех Олимпиадах с 1924 года'
+      description: 'Золотые медали на всех Олимпиадах с 1926 года'
     },
     {
       icon: Medal,
@@ -15,7 +15,7 @@ export default function History() {
     {
       icon: Target,
       title: '100 лет традиций',
-      description: 'Непрерывная история успеха с 1924 года'
+      description: 'Непрерывная история успеха с 1926 года'
     }
   ];
 
@@ -31,7 +31,7 @@ export default function History() {
       <div className="history-content">
         <div className="history-text">
           <p className="history-paragraph">
-            Волейбольный клуб "Трансформеры" был основан в 1924 году группой энтузиастов,
+            Волейбольный клуб "Трансформеры" был основан в 1926 году группой энтузиастов,
             которые мечтали создать команду мирового уровня. За прошедшие 100 лет мы не просто
             осуществили эту мечту — мы превзошли все ожидания.
           </p>
@@ -63,7 +63,17 @@ export default function History() {
             </div>
           ))}
         </div>
+
+        <footer className="footer">
+          <div className="footer-content">
+            <div className="footer-copyright">
+              © {new Date().getFullYear()} Трансформеры. Все права защищены.
+            </div>
+          </div>
+        </footer>
       </div>
+
+
     </div>
   );
 }

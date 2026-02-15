@@ -4,9 +4,10 @@ import History from './pages/History';
 import Team from './pages/Team';
 import Schedule from './pages/Schedule';
 import { ThemeProvider } from './context/ThemeContext';
+import Contacts from "./pages/Contacts";
 
 function App() {
-  const [currentPage, setCurrentPage] = useState<'history' | 'team' | 'schedule'>('history');
+  const [currentPage, setCurrentPage] = useState<'history' | 'team' | 'schedule' | 'contacts'>('history');
 
   const renderPage = () => {
     switch (currentPage) {
@@ -16,6 +17,8 @@ function App() {
         return <Team />;
       case 'schedule':
         return <Schedule />;
+      case 'contacts':
+        return <Contacts />;
       default:
         return <History />;
     }
